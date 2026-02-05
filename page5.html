@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Ruhi – Final Surprise ❤️</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Satisfy&display=swap" rel="stylesheet">
+    <!-- GSAP & Canvas Confetti for Petal Burst -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --pink-glow: #ffafbd;
+            --peach-soft: #ffc3a0;
+            --lavender-dream: #e1bee7;
+            --deep-rose: #ff4d6d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='fill:red;'><path d='M10 18.35l-1.45-1.32C3.4 12.36 0 9.28 0 5.5 0 2.42 2.42 0 5.5 0 7.24 0 8.91.81 10 2.09 11.09.81 12.76 0 14.5 0 17.58 0 20 2.42 20 5.5 0 9.28-3.4 12.36-8.55 17.04L10 18.35z'/></svg>"), auto;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--pink-glow), var(--peach-soft), var(--lavender-dream));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #4a148c;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Cinematic Vignette */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.1);
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 40px;
+            opacity: 0;
+        }
+
+        .hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--deep-rose);
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
+        }
+
+        .hero p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .shimmer-line {
+            width: 250px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--deep-rose), transparent);
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Apology Message */
+        .apology-container {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            padding: 40px;
+            margin: 40px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 50px rgba(255, 175, 189, 0.3);
+            position: relative;
+            opacity: 0;
+        }
+
+        .typewriter-text {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #6a1b9a;
+            min-height: 200px;
+        }
+
+        /* Surprise Section */
+        .surprise-section {
+            text-align: center;
+            margin: 50px 0;
+            opacity: 0;
+        }
+
+        .reveal-btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .reveal-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 77, 109, 0.6);
+        }
+
+        #surprise-content {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .forever-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--deep-rose);
+            animation: pulseText 2s infinite alternate;
+        }
+
+        @keyframes pulseText {
+            from { text-shadow: 0 0 10px rgba(255,77,109,0.2); transform: scale(1); }
+            to { text-shadow: 0 0 30px rgba(255,77,109,0.6); transform: scale(1.05); }
+        }
+
+        /* Love Letter Popup */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .letter {
+            background: #fffcf0;
+            width: 90%;
+            max-width: 500px;
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            transform: translateY(50px);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+
+        .close-letter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--deep-rose);
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 80px 20px;
+            opacity: 0;
+        }
+
+        .heart-beat {
+            display: inline-block;
+            animation: beat 1s infinite alternate;
+            color: var(--deep-rose);
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.3); }
+        }
+
+        .home-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--deep-rose);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 60;
+        }
+
+        #petal-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vignette"></div>
+    <canvas id="petal-canvas"></canvas>
+
+    <div class="hero" id="hero">
+        <h1>Ruhi, I’m Truly Sorry…</h1>
+        <p>A small mistake… and a big apology that comes straight from my heart.</p>
+        <div class="shimmer-line"></div>
+    </div>
+
+    <div class="apology-container" id="apologyBox">
+        <div class="typewriter-text" id="typewriter"></div>
+    </div>
+
+    <div class="surprise-section" id="surpriseSection">
+        <p style="margin-bottom: 20px; font-style: italic;">Your Surprise…</p>
+        <button class="reveal-btn" onclick="revealSurprise()" id="revealBtn">Tap to Reveal 💗</button>
+        
+        <div id="surprise-content">
+            <h2 class="forever-text">I Love You, Ruhi ❤️</h2>
+            <p>You Are My Forever Person.</p>
+            <br>
+            <button class="reveal-btn" style="padding: 12px 30px; font-size: 1rem;" onclick="openLetter()">Read Your Love Letter 💌</button>
+        </div>
+    </div>
+
+    <div class="footer" id="footer">
+        <p>I hope this brought a smile to your face, Sona…</p>
+        <h3 style="font-family: 'Satisfy', cursive; margin-top: 15px;">— With all my love, <br> Rishu <span class="heart-beat">❤️</span></h3>
+    </div>
+
+    <!-- Letter Popup -->
+    <div class="overlay" id="letterOverlay">
+        <div class="letter" id="letterContent">
+            <button class="close-letter" onclick="closeLetter()">×</button>
+            Dear Ruhi,<br><br>
+            Every moment with you is precious… Thank you for being in my life even when I mess up. <br><br>
+            I promise to love you better every single day, to be more patient, and to never let your smile fade because of me.<br><br>
+            — Your Rishu
+        </div>
+    </div>
+
+    <a href="index.html" class="home-link">Back to Home 🌸</a>
+
+    <audio id="chime" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
+
+    <script>
+        const text = "Ruhi, aap mere liye bahut important ho… Aapko hurt karne ka koi intention kabhi nahi tha… Aur main aapse dil se maafi mang raha hoon. Please forgive your Rishu… ❤️";
+        const typewriter = document.getElementById('typewriter');
+        const chime = document.getElementById('chime');
+
+        window.onload = () => {
+            gsap.to("#hero", { opacity: 1, y: -20, duration: 1.5 });
+            gsap.to("#apologyBox", { opacity: 1, duration: 1.5, delay: 0.5, onComplete: startTypewriter });
+            gsap.to("#surpriseSection", { opacity: 1, duration: 1, delay: 2 });
+            gsap.to("#footer", { opacity: 1, duration: 1, delay: 3 });
+        };
+
+        function startTypewriter() {
+            let i = 0;
+            const speed = 70;
+            function type() {
+                if (i < text.length) {
+                    typewriter.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        function revealSurprise() {
+            chime.play();
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('surprise-content').style.display = "block";
+
+            // Petal Blast
+            const end = Date.now() + (2 * 1000);
+            const colors = ['#ff8fa3', '#ff4d6d', '#fff'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.6 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.6 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            gsap.from("#surprise-content", { scale: 0.5, opacity: 0, duration: 1, ease: "elastic.out(1, 0.5)" });
+        }
+
+        function openLetter() {
+            document.getElementById('letterOverlay').style.display = "flex";
+            gsap.from("#letterContent", { y: 100, opacity: 0, duration: 0.8, ease: "power3.out" });
+        }
+
+        function closeLetter() {
+            gsap.to("#letterContent", { y: 100, opacity: 0, duration: 0.5, onComplete: () => {
+                document.getElementById('letterOverlay').style.display = "none";
+            }});
+        }
+
+        // --- Background Floating Particles ---
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+        let petals = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Petal {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.size = Math.random() * 10 + 5;
+                this.speed = Math.random() * 1 + 0.5;
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = Math.random() * 0.02 - 0.01;
+            }
+            update() {
+                this.y -= this.speed;
+                this.angle += this.spin;
+                this.x += Math.sin(this.angle) * 0.5;
+                if (this.y < -20) this.y = canvas.height + 20;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.fillStyle = "rgba(255, 182, 193, 0.6)";
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.size, this.size/2, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petals.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        for(let i=0; i<30; i++) petals.push(new Petal());
+        animate();
+    </script>
+</body>
+</html>
