@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Apology Rituals – Page 3</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Satisfy&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <style>
+        :root {
+            --pink-soft: #ffcad4;
+            --cream: #fff9f0;
+            --lavender: #f3e5f5;
+            --rose: #ff8fa3;
+            --deep-pink: #ff4d6d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='fill:red;'><path d='M10 18.35l-1.45-1.32C3.4 12.36 0 9.28 0 5.5 0 2.42 2.42 0 5.5 0 7.24 0 8.91.81 10 2.09 11.09.81 12.76 0 14.5 0 17.58 0 20 2.42 20 5.5 0 9.28-3.4 12.36-8.55 17.04L10 18.35z'/></svg>"), auto;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--pink-soft), var(--cream), var(--lavender));
+            color: #5d4037;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* --- Header --- */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #8d6e63;
+        }
+
+        .shimmer-line {
+            width: 180px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--rose), transparent);
+            margin: 15px auto;
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* --- Ritual Container --- */
+        .rituals-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .ritual-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px dashed var(--rose);
+            border-radius: 30px;
+            padding: 30px;
+            width: 340px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .ritual-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 143, 163, 0.2);
+        }
+
+        .ritual-title {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.5rem;
+            color: var(--deep-pink);
+            margin-bottom: 20px;
+        }
+
+        /* --- Ritual 1: Hug Machine --- */
+        .teddy-box {
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .teddy-icon {
+            font-size: 80px;
+            transition: transform 0.5s ease;
+        }
+
+        .hug-msg {
+            font-size: 0.9rem;
+            margin-top: 15px;
+            color: #ff4d6d;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* --- Ritual 2: Heart Repairer --- */
+        .heart-area {
+            position: relative;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .broken-heart {
+            font-size: 80px;
+            position: relative;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.1));
+        }
+
+        .stitch-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stitch {
+            width: 30px;
+            height: 10px;
+            background: #ff4d6d;
+            border-radius: 5px;
+            cursor: grab;
+            z-index: 10;
+            box-shadow: 0 0 5px rgba(255, 77, 109, 0.5);
+        }
+
+        /* --- Ritual 3: Flower Rain --- */
+        .flower-btn-box {
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Global Button Style --- */
+        .ritual-btn {
+            background: white;
+            border: 1px solid var(--rose);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--deep-pink);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .ritual-btn:hover {
+            background: var(--rose);
+            color: white;
+        }
+
+        /* --- Next Page Button --- */
+        .footer-nav {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #ff8fa3, #ff4d6d);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bottom-text {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #8d6e63;
+        }
+
+        /* Petal Rain container */
+        #petal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* --- Mobile --- */
+        @media (max-width: 768px) {
+            .ritual-card { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="petal-overlay"></div>
+
+    <div class="header">
+        <h1>Special Apology Rituals for You, Ruhi…</h1>
+        <p>Choose any ritual and feel my sorry in the cutest way.</p>
+        <div class="shimmer-line"></div>
+    </div>
+
+    <div class="rituals-container">
+        <!-- Ritual 1: Virtual Hug -->
+        <div class="ritual-card" id="hugCard">
+            <div class="ritual-title">Virtual Hug Machine</div>
+            <div class="teddy-box">
+                <div class="teddy-icon" id="teddy">🧸</div>
+            </div>
+            <button class="ritual-btn" onclick="giveHug()">Tap for a Hug 🤗</button>
+            <div class="hug-msg" id="hugMsg">I miss your hug, Ruhi. Please accept this one from me ❤️</div>
+        </div>
+
+        <!-- Ritual 2: Heart Repairer -->
+        <div class="ritual-card" id="repairCard">
+            <div class="ritual-title">Broken Heart Repairer</div>
+            <div class="heart-area">
+                <div class="broken-heart" id="mainHeart">💔</div>
+            </div>
+            <p style="font-size: 0.8rem; margin: 10px 0;">Drag stitches to repair the heart!</p>
+            <div class="stitch-container">
+                <div class="stitch" id="s1"></div>
+                <div class="stitch" id="s2"></div>
+                <div class="stitch" id="s3"></div>
+            </div>
+            <div class="hug-msg" id="repairMsg">Thank you Sona… You repaired my heart again.</div>
+        </div>
+
+        <!-- Ritual 3: Flower Rain -->
+        <div class="ritual-card">
+            <div class="ritual-title">Flower Rain Apology</div>
+            <div class="flower-btn-box">
+                <span id="flowerIcon" style="font-size: 50px; margin-bottom: 15px;">🌸</span>
+                <button class="ritual-btn" onclick="startFlowerRain()">Tap to Shower Love 🌹</button>
+            </div>
+            <div class="hug-msg" id="flowerMsg" style="font-family: monospace;"></div>
+        </div>
+    </div>
+
+    <div class="footer-nav">
+        <div class="bottom-text">“These rituals are small… but my apology and love for you are infinite.”</div>
+        <a href="page4.html" class="next-btn">Next → My Promises to You ❤️</a>
+    </div>
+
+    <!-- Sounds -->
+    <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+    <audio id="chimeSound" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
+
+    <script>
+        gsap.registerPlugin(Draggable);
+
+        const popSound = document.getElementById('popSound');
+        const chimeSound = document.getElementById('chimeSound');
+
+        // --- Ritual 1: Hug Logic ---
+        function giveHug() {
+            popSound.play();
+            const teddy = document.getElementById('teddy');
+            const hugMsg = document.getElementById('hugMsg');
+            
+            // Shake effect
+            gsap.to("body", { x: 5, duration: 0.05, repeat: 5, yoyo: true });
+            
+            // Teddy Animation
+            gsap.to(teddy, { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 });
+            
+            hugMsg.style.display = "block";
+            gsap.fromTo(hugMsg, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1 });
+        }
+
+        // --- Ritual 2: Heart Repairer Logic ---
+        let stitchesPlaced = 0;
+        const totalStitches = 3;
+
+        for (let i = 1; i <= 3; i++) {
+            Draggable.create(`#s${i}`, {
+                type: "x,y",
+                onDragEnd: function() {
+                    const heart = document.getElementById('mainHeart');
+                    const rect1 = this.target.getBoundingClientRect();
+                    const rect2 = heart.getBoundingClientRect();
+
+                    // Check if dropped near heart
+                    const isOver = !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+
+                    if (isOver) {
+                        this.target.style.visibility = "hidden";
+                        stitchesPlaced++;
+                        chimeSound.play();
+                        
+                        if (stitchesPlaced === totalStitches) {
+                            heart.innerText = "💖";
+                            gsap.to(heart, { scale: 1.3, duration: 0.5, yoyo: true, repeat: -1 });
+                            const msg = document.getElementById('repairMsg');
+                            msg.style.display = "block";
+                            gsap.from(msg, { opacity: 0, duration: 1 });
+                        }
+                    } else {
+                        gsap.to(this.target, { x: 0, y: 0, duration: 0.5 });
+                    }
+                }
+            });
+        }
+
+        // --- Ritual 3: Flower Rain Logic ---
+        function startFlowerRain() {
+            chimeSound.play();
+            const container = document.getElementById('petal-overlay');
+            
+            for (let i = 0; i < 50; i++) {
+                const petal = document.createElement('div');
+                petal.innerHTML = Math.random() > 0.5 ? "🌸" : "🌹";
+                petal.style.position = 'absolute';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = '-20px';
+                petal.style.fontSize = Math.random() * 20 + 10 + 'px';
+                container.appendChild(petal);
+
+                gsap.to(petal, {
+                    y: window.innerHeight + 50,
+                    x: (Math.random() - 0.5) * 200,
+                    rotation: Math.random() * 720,
+                    duration: Math.random() * 3 + 2,
+                    ease: "none",
+                    onComplete: () => petal.remove()
+                });
+            }
+
+            const flowerMsg = document.getElementById('flowerMsg');
+            flowerMsg.style.display = "block";
+            const text = "You deserve all the softness in the world, Ruhi ❤️";
+            flowerMsg.innerText = "";
+            let idx = 0;
+            
+            const typing = setInterval(() => {
+                flowerMsg.innerText += text[idx];
+                idx++;
+                if (idx >= text.length) clearInterval(typing);
+            }, 50);
+        }
+
+        // --- Initial Animations ---
+        window.onload = () => {
+            gsap.from(".ritual-card", { opacity: 0, y: 50, stagger: 0.2, duration: 1, ease: "back.out" });
+        }
+    </script>
+</body>
+</html>
