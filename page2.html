@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why You Matter to Me, Ruhi ❤️</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Satisfy&display=swap" rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --pink-bg: #fff0f3;
+            --lavender-bg: #f8f0ff;
+            --cream-bg: #fffcf2;
+            --rose-accent: #ff8fa3;
+            --deep-pink: #ff4d6d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='fill:red;'><path d='M10 18.35l-1.45-1.32C3.4 12.36 0 9.28 0 5.5 0 2.42 2.42 0 5.5 0 7.24 0 8.91.81 10 2.09 11.09.81 12.76 0 14.5 0 17.58 0 20 2.42 20 5.5 0 9.28-3.4 12.36-8.55 17.04L10 18.35z'/></svg>"), auto;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--pink-bg), var(--cream-bg), var(--lavender-bg));
+            color: #5d4037;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- Background Decoration --- */
+        #decoration-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- Header --- */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #8d6e63;
+            opacity: 0;
+        }
+
+        .glow-line {
+            width: 200px;
+            height: 2px;
+            background: var(--rose-accent);
+            margin: 15px auto;
+            box-shadow: 0 0 10px var(--rose-accent);
+            opacity: 0;
+        }
+
+        /* --- Cards Grid --- */
+        .cards-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px rgba(255, 143, 163, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: rotateY(-15deg) translateY(30px);
+            perspective: 1000px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02) rotateY(0deg);
+            box-shadow: 0 20px 40px rgba(255, 143, 163, 0.25);
+            background: white;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.2);
+            animation: softVibrate 0.5s infinite;
+        }
+
+        @keyframes softVibrate {
+            0% { transform: scale(1.2) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(2deg); }
+            75% { transform: scale(1.2) rotate(-2deg); }
+            100% { transform: scale(1.2) rotate(0deg); }
+        }
+
+        .card-text {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.2rem;
+            color: #5d4037;
+        }
+
+        /* --- Specific Card Logic --- */
+        .heart-half { fill: #ff8fa3; transition: 0.5s; }
+        .card:hover .heart-half { fill: #ff4d6d; }
+        
+        /* --- Bottom Message --- */
+        .bottom-message {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .handwritten {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--deep-pink);
+            display: block;
+            margin-bottom: 30px;
+            opacity: 0;
+        }
+
+        /* --- Next Button --- */
+        .next-btn {
+            background: #ff758c;
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .next-btn:hover {
+            background: #ff4d6d;
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6);
+            transform: scale(1.05);
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2.5rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .handwritten { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="decoration-container"></div>
+
+    <div class="header" id="headerSection">
+        <h1>Why You Matter to Me, Ruhi...</h1>
+        <p>Every reason that makes you special to your Rishu.</p>
+        <div class="glow-line" id="glowLine"></div>
+    </div>
+
+    <div class="cards-grid">
+        <!-- Card 1 -->
+        <div class="card">
+            <span class="card-icon">🪷</span>
+            <div class="card-text">
+                “Jab tak aap saath ho, tab tak har situation manageable lagti hai…”
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" id="card-complete">
+            <span class="card-icon" id="heart-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24">
+                    <path class="heart-half" id="h-left" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09" />
+                    <path class="heart-half" id="h-right" d="M12 5.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35" style="opacity:0.3;"/>
+                </svg>
+            </span>
+            <div class="card-text">
+                “Aapke bina Rishu ki zindagi ka koi matlab nahi lagta…”
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <span class="card-icon" id="smiley">😊</span>
+            <div class="card-text">
+                “Aapki ek choti si smile mere poore din ko bright bana deti hai…”
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <span class="card-icon">✨</span>
+            <div class="card-text">
+                “Aap mujhe ek better, calmer, and more loving person banati ho…”
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card" id="card-repair">
+            <span class="card-icon" id="broken-heart">💔</span>
+            <div class="card-text">
+                “Aapko hurt karna Rishu ko sabse zyada takleef deta hai…”
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-message">
+        <span class="handwritten" id="finalNote">
+            “You are not just important…<br>You are everything.”
+        </span>
+        <a href="page3.html" class="next-btn" id="nextBtn">
+            Next → Special Apology Rituals ❤️
+        </a>
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
+    <script>
+        // --- Decorations ---
+        function createElement() {
+            const el = document.createElement('div');
+            const isHeart = Math.random() > 0.5;
+            el.innerHTML = isHeart ? "❤️" : "🌸";
+            el.style.position = 'fixed';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = '-20px';
+            el.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            el.style.opacity = Math.random() * 0.4 + 0.2;
+            el.style.pointerEvents = 'none';
+            document.getElementById('decoration-container').appendChild(el);
+
+            gsap.to(el, {
+                y: window.innerHeight + 50,
+                x: '+=' + (Math.random() * 100 - 50),
+                rotation: Math.random() * 360,
+                duration: Math.random() * 6 + 4,
+                ease: 'none',
+                onComplete: () => el.remove()
+            });
+        }
+        setInterval(createElement, 500);
+
+        // --- Animations ---
+        window.onload = () => {
+            const tl = gsap.timeline();
+            tl.to(".header h1", { opacity: 1, y: 0, duration: 1 })
+              .to(".header p", { opacity: 1, duration: 0.8 }, "-=0.5")
+              .to("#glowLine", { opacity: 1, width: 250, duration: 1 }, "-=0.5")
+              .to(".card", { 
+                  opacity: 1, 
+                  y: 0, 
+                  rotateY: 0, 
+                  stagger: 0.2, 
+                  duration: 1,
+                  ease: "back.out(1.7)"
+              }, "-=0.5")
+              .to("#finalNote", { opacity: 1, duration: 1.5 }, "-=0.5");
+        };
+
+        // --- Card Specific Interactive Logic ---
+        const cardComplete = document.getElementById('card-complete');
+        cardComplete.addEventListener('mouseenter', () => {
+            gsap.to("#h-right", { opacity: 1, x: 0, duration: 0.5 });
+        });
+        cardComplete.addEventListener('mouseleave', () => {
+            gsap.to("#h-right", { opacity: 0.3, duration: 0.5 });
+        });
+
+        const cardRepair = document.getElementById('card-repair');
+        cardRepair.addEventListener('mouseenter', () => {
+            document.getElementById('broken-heart').innerText = "💖";
+        });
+        cardRepair.addEventListener('mouseleave', () => {
+            document.getElementById('broken-heart').innerText = "💔";
+        });
+
+        // --- Button Logic ---
+        document.getElementById('nextBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('clickSound').play();
+            gsap.to("body", { opacity: 0, duration: 0.8, onComplete: () => {
+                window.location.href = "page3.html";
+            }});
+        });
+    </script>
+</body>
+</html>
