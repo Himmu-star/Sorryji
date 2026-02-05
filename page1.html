@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Really Happened... – Page 1</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Satisfy&display=swap" rel="stylesheet">
+    <!-- GSAP for scroll-triggered animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --pink-pastel: #ffe5ec;
+            --lavender-pastel: #f3e5f5;
+            --cream-pastel: #fff9f0;
+            --rose-accent: #ff8fa3;
+            --text-color: #5d4037;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='fill:red;'><path d='M10 18.35l-1.45-1.32C3.4 12.36 0 9.28 0 5.5 0 2.42 2.42 0 5.5 0 7.24 0 8.91.81 10 2.09 11.09.81 12.76 0 14.5 0 17.58 0 20 2.42 20 5.5 0 9.28-3.4 12.36-8.55 17.04L10 18.35z'/></svg>"), auto;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, var(--cream-pastel), var(--pink-pastel), var(--lavender-pastel));
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Background Decoration --- */
+        #petal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- Header Section --- */
+        .header-section {
+            padding: 80px 20px 40px;
+            text-align: center;
+            opacity: 0;
+        }
+
+        .header-section h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--rose-accent);
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #8d6e63;
+        }
+
+        .shimmer-line {
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--rose-accent), transparent);
+            margin: 15px auto;
+            border-radius: 2px;
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* --- Comic Strip Layout --- */
+        .comic-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .comic-panel {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 60px;
+            box-shadow: 0 15px 35px rgba(255, 143, 163, 0.15);
+            border: 2px solid rgba(255, 143, 163, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .panel-illustration {
+            width: 100%;
+            max-width: 280px;
+            height: 200px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .panel-text {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.4rem;
+            text-align: center;
+            color: #5d4037;
+        }
+
+        .panel-text span.sorry-highlight {
+            display: block;
+            margin-top: 15px;
+            font-size: 1.8rem;
+            color: #ff4d6d;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(255, 77, 109, 0.2); }
+            to { text-shadow: 0 0 15px rgba(255, 77, 109, 0.6); }
+        }
+
+        /* --- Illustration Assets (SVGs) --- */
+        .svg-asset {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- Navigation Button --- */
+        .nav-container {
+            text-align: center;
+            padding: 40px 20px 80px;
+            opacity: 0;
+        }
+
+        .next-btn {
+            background: #ff8fa3;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 143, 163, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #ff4d6d;
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6);
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .header-section h1 { font-size: 2.8rem; }
+            .panel-text { font-size: 1.2rem; }
+            .comic-panel { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="petal-container"></div>
+
+    <div class="header-section" id="header">
+        <h1>What Really Happened…</h1>
+        <p>A small story I want to tell you, Ruhi.</p>
+        <div class="shimmer-line"></div>
+    </div>
+
+    <div class="comic-container">
+        <!-- Panel 1 -->
+        <div class="comic-panel">
+            <div class="panel-illustration">
+                <svg class="svg-asset" viewBox="0 0 200 150">
+                    <circle cx="70" cy="70" r="30" fill="#ffe0bd" /> <!-- Boy -->
+                    <circle cx="130" cy="70" r="30" fill="#ffe0bd" /> <!-- Girl -->
+                    <path d="M50 70 Q70 40 90 70" fill="#4a3728" /> <!-- Boy Hair -->
+                    <path d="M110 70 Q130 30 150 70" fill="#ffcad4" /> <!-- Girl Hair/Bow -->
+                    <path d="M85 80 Q100 80 115 80" stroke="#ff8fa3" stroke-width="2" fill="none" /> <!-- Conversation line -->
+                    <circle cx="60" cy="75" r="2" fill="#333" />
+                    <circle cx="80" cy="75" r="2" fill="#333" />
+                    <circle cx="120" cy="75" r="2" fill="#333" />
+                    <circle cx="140" cy="75" r="2" fill="#333" />
+                </svg>
+            </div>
+            <div class="panel-text">“Kabhi kabhi Rishu bhi express karte waqt galti kar deta hai…”</div>
+        </div>
+
+        <!-- Panel 2 -->
+        <div class="comic-panel">
+            <div class="panel-illustration">
+                <svg class="svg-asset" viewBox="0 0 200 150">
+                    <!-- Sad Girl Character -->
+                    <circle cx="100" cy="70" r="35" fill="#ffe0bd" />
+                    <path d="M75 75 Q85 85 95 75" stroke="#333" stroke-width="2" fill="none" /> <!-- Sad Eye -->
+                    <path d="M105 75 Q115 85 125 75" stroke="#333" stroke-width="2" fill="none" /> <!-- Sad Eye -->
+                    <path d="M90 95 Q100 90 110 95" stroke="#333" stroke-width="2" fill="none" /> <!-- Mouth -->
+                    <rect x="0" y="0" width="200" height="150" fill="rgba(0,0,0,0.05)" rx="10"/> <!-- Slight Grey Filter -->
+                </svg>
+            </div>
+            <div class="panel-text">“Us din maine aapse thoda ya zyada rude baat kar di…”</div>
+        </div>
+
+        <!-- Panel 3 -->
+        <div class="comic-panel">
+            <div class="panel-illustration">
+                <svg class="svg-asset" viewBox="0 0 200 150">
+                    <!-- Boy Head Down -->
+                    <circle cx="100" cy="85" r="35" fill="#ffe0bd" />
+                    <path d="M70 70 Q100 50 130 70" fill="#4a3728" />
+                    <path d="M90 100 Q100 110 110 100" stroke="#333" stroke-width="2" fill="none" />
+                </svg>
+            </div>
+            <div class="panel-text">“Par Rishu ka kabhi bhi intention aapko hurt karne ka nahi tha…”</div>
+        </div>
+
+        <!-- Panel 4 -->
+        <div class="comic-panel">
+            <div class="panel-illustration">
+                <svg class="svg-asset" viewBox="0 0 200 150">
+                    <!-- Glowing Heart -->
+                    <path d="M100 100 L90 90 A20 20 0 0 1 110 70 A20 20 0 0 1 130 90 L120 100 L110 110 L100 100" fill="#ff4d6d">
+                        <animate attributeName="transform" type="scale" values="1;1.1;1" dur="1s" repeatCount="indefinite" />
+                    </path>
+                    <path d="M60 120 Q100 100 140 120" stroke="#ffe0bd" stroke-width="8" fill="none" stroke-linecap="round" /> <!-- Hands -->
+                </svg>
+            </div>
+            <div class="panel-text">
+                “Isliye maine ye poori website aapke liye banayi… sirf ek baat ke liye…”
+                <span class="sorry-highlight">I’m genuinely sorry, Sona ❤️</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-container" id="nav">
+        <a href="page2.html" class="next-btn" id="nextLink">
+            Next → Why You Matter to Me ❤️
+        </a>
+    </div>
+
+    <audio id="tinkSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
+    <script>
+        // --- Falling Petals Animation ---
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.innerHTML = "🌸";
+            petal.style.position = 'fixed';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = '-20px';
+            petal.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            petal.style.opacity = Math.random() * 0.5 + 0.3;
+            petal.style.pointerEvents = 'none';
+            petal.style.zIndex = '1';
+            document.getElementById('petal-container').appendChild(petal);
+
+            gsap.to(petal, {
+                y: window.innerHeight + 50,
+                x: '+=' + (Math.random() * 100 - 50),
+                rotation: Math.random() * 360,
+                duration: Math.random() * 5 + 5,
+                ease: 'none',
+                onComplete: () => petal.remove()
+            });
+        }
+
+        setInterval(createPetal, 400);
+
+        // --- GSAP Scroll Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Header animation
+        gsap.to("#header", { opacity: 1, duration: 1.5, y: 0 });
+
+        // Panels animation
+        const panels = document.querySelectorAll('.comic-panel');
+        panels.forEach((panel, index) => {
+            gsap.to(panel, {
+                scrollTrigger: {
+                    trigger: panel,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.1
+            });
+        });
+
+        // Navigation button animation
+        gsap.to("#nav", {
+            scrollTrigger: {
+                trigger: "#nav",
+                start: "top 90%"
+            },
+            opacity: 1,
+            duration: 1
+        });
+
+        // Click sound and transition
+        document.getElementById('nextLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('tinkSound').play();
+            const href = this.getAttribute('href');
+            
+            gsap.to("body", { 
+                opacity: 0, 
+                duration: 0.8, 
+                onComplete: () => {
+                    window.location.href = href;
+                } 
+            });
+        });
+    </script>
+</body>
+</html>
